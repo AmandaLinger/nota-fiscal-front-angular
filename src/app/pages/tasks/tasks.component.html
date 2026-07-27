@@ -1,58 +1,14 @@
-<h2>Notas fiscais</h2>
-<dx-data-grid
-  class="dx-card content-block"
-  [dataSource]="dataSource"
-  [showBorders]="false"
-  [focusedRowEnabled]="true"
-  [focusedRowIndex]="0"
-  [columnAutoWidth]="true"
-  [columnHidingEnabled]="true">
+<main class="products-container">
+  <div class="title-container">
+    <h1>Notas fiscais</h1>
+    <p class="subtitle">Relatório de todas notas fiscais emitidas.</p>
+  </div>
 
-  <dxo-data-grid-paging [pageSize]="10"></dxo-data-grid-paging>
-  <dxo-data-grid-pager [showPageSizeSelector]="true" [showInfo]="true"></dxo-data-grid-pager>
-  <dxo-data-grid-filter-row [visible]="true"></dxo-data-grid-filter-row>
-
-  <dxi-data-grid-column
-    dataField="id"
-    datatype="number"
-    [width]="90"
-    [hidingPriority]="1">
-  </dxi-data-grid-column>
-
-  <dxi-data-grid-column
-    dataField="numero_nota"
-    [width]="190"
-    caption="Numero nota"
-    [hidingPriority]="6">
-  </dxi-data-grid-column>
-
-  <dxi-data-grid-column
-    dataField="Data_emissao"
-    caption="Data emissão"
-    dataType="date"
-    [hidingPriority]="4">
-  </dxi-data-grid-column>
-
-  <dxi-data-grid-column
-    dataField="Cliente"
-    caption="Cliente"
-    dataType="string"
-    [allowSorting]="false"
-    [hidingPriority]="5">
-  </dxi-data-grid-column>
-
-  <dxi-data-grid-column
-    dataField="Item_nota"
-    caption="Item nota"
-    dataType="number"
-    [hidingPriority]="2">
-  </dxi-data-grid-column>
-
-  <dxi-data-grid-column
-    dataField="Preco_total"
-    caption="Preco total"
-    dataType="number"
-    [hidingPriority]="3">
-  </dxi-data-grid-column>
-
-</dx-data-grid>
+  <dx-data-grid
+    id="gridContainer"
+    [dataSource]="dataSource"
+    [columns]="columns"
+    [showBorders]="true"
+  >
+  </dx-data-grid>
+</main>

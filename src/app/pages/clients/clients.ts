@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
 
 @Component({
-  selector: 'app-products',
+  selector: 'app-clients',
   imports: [DxDataGridModule],
-  templateUrl: './products.html',
-  styleUrl: './products.scss',
+  templateUrl: './clients.html',
+  styleUrl: './clients.scss',
 })
-export class Products {
+export class Clients {
   dataSource: any[] = [];
-  columns = ['id', 'Produto_nome', 'Preco', 'Descrição'];
+  columns = ['id', 'Nome', 'Codigo'];
 }
