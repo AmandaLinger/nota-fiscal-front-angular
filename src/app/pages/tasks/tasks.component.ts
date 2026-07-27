@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
 import { Btn } from "../../shared/components/btn/btn";
 import { NotaFiscal } from '../../interfaces/nota-fiscal';
+import { NotaFiscalService } from '../../services/nota-fiscal-service';
 
 @Component({
   selector: 'app-tasks',
@@ -10,8 +11,16 @@ import { NotaFiscal } from '../../interfaces/nota-fiscal';
   standalone: true,
   imports: [DxDataGridModule,Btn]
 })
-export class TasksComponent {
+export class TasksComponent implements OnInit{
   dataSource: NotaFiscal[] = [];
   columns: string[] = ['id', 'numeroNotaFiscal', 'dataEmissao', 'cliente', 'produtos', 'precoTotal'];
-  // TODO: conectar ao backend para carregar as notas fiscais
+  
+
+  constructor(private notaFiscalService: NotaFiscalService){}
+
+  ngOnInit(): void {
+    this.notaFiscalService.listar().subscribe((notaFiscal) => {
+      this.dataSource = notaFiscal;
+    })
+  }
 }
