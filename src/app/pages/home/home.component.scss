@@ -1,37 +1,26 @@
-.logos-container {
-  margin: 0 0 40px 0;
 
-  svg {
-    display: inline-block;
+.title-container h1{
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 0;
+
+  strong{
+    color: #65558F;
   }
 }
 
-.devextreme-logo {
-  width: 255px;
-  height: 60px;
-
-  > path {
-    fill: var(--devextreme-logo-color);
-  }
-
-  .by-devexpress {
-    path {
-      fill: var(--devextreme-logo-color);
-    }
-  }
+.subtitle{
+  font-size: 1.2rem;
+  color: #555;
+  font-weight: 600;
 }
 
-.angular-logo {
-  width: 247px;
-  height: 60px;
-}
+.image-container{
+  display: flex;
+  justify-content: right;
+  transform: translateY(-50px);
 
-.plus {
-  margin: 20px;
-  width: 22px;
-  height: 22px;
-
-  path {
-    fill:  var(--plus-icon-color);
+  img{
+    height: 600px;
   }
 }

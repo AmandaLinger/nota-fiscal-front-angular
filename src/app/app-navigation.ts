@@ -6,16 +6,20 @@ export const navigation: NavigationItem[] = [
     icon: 'home'
   },
   {
-    text: 'Examples',
+    text: 'Informações',
     icon: 'folder',
     items: [
       {
-        text: 'Profile',
+        text: 'Perfil',
         path: '/profile'
       },
       {
-        text: 'Tasks',
-        path: '/tasks'
+        text: 'Notas Fiscais',
+        path: '/notas-fiscais'
+      },
+      {
+        text: 'Produtos',
+        path: '/produtos'
       }
     ]
   }
