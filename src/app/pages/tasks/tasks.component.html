@@ -1,5 +1,4 @@
-<h2>Tasks</h2>
-
+<h2>Notas fiscais</h2>
 <dx-data-grid
   class="dx-card content-block"
   [dataSource]="dataSource"
@@ -15,42 +14,45 @@
 
   <dxi-data-grid-column
     dataField="id"
+    datatype="number"
     [width]="90"
     [hidingPriority]="1">
   </dxi-data-grid-column>
+
   <dxi-data-grid-column
-    dataField="text"
+    dataField="numero_nota"
     [width]="190"
-    caption="Subject"
+    caption="Numero nota"
     [hidingPriority]="6">
   </dxi-data-grid-column>
+
   <dxi-data-grid-column
-    dataField="status"
-    caption="Status"
+    dataField="Data_emissao"
+    caption="Data emissão"
+    dataType="date"
     [hidingPriority]="4">
   </dxi-data-grid-column>
+
   <dxi-data-grid-column
-    dataField="owner"
-    caption="Assigned To"
+    dataField="Cliente"
+    caption="Cliente"
+    dataType="string"
     [allowSorting]="false"
     [hidingPriority]="5">
   </dxi-data-grid-column>
+
   <dxi-data-grid-column
-    dataField="startDate"
-    caption="Start Date"
-    dataType="date"
+    dataField="Item_nota"
+    caption="Item nota"
+    dataType="number"
     [hidingPriority]="2">
   </dxi-data-grid-column>
+
   <dxi-data-grid-column
-    dataField="dueDate"
-    caption="Due Date"
-    dataType="date"
+    dataField="Preco_total"
+    caption="Preco total"
+    dataType="number"
     [hidingPriority]="3">
   </dxi-data-grid-column>
-  <dxi-data-grid-column
-    dataField="priority"
-    caption="Priority"
-    name="Priority"
-    [hidingPriority]="0">
-  </dxi-data-grid-column>
+
 </dx-data-grid>
