@@ -7,6 +7,7 @@ import {
     AuthService,
     ScreenService,
 } from './shared/services';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,5 +17,6 @@ export const appConfig: ApplicationConfig = {
     AuthService,
     ScreenService,
     AppInfoService,
+    provideHttpClient()
   ]
 };

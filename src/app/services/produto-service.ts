@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class ProdutoService {
 
   //conectando com a api do backend na rota de produtos
-  private api = 'http://localhost:8080/produtos';
+  private api = 'http://localhost:8080/produto';
 
   constructor(private http: HttpClient) {}
 

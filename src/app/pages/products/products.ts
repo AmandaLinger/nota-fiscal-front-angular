@@ -6,6 +6,7 @@ import { ProdutoService } from '../../services/produto-service';
 
 @Component({
   selector: 'app-products',
+  standalone: true,
   imports: [DxDataGridModule, Btn],
   templateUrl: './products.html',
   styleUrl: './products.scss',
