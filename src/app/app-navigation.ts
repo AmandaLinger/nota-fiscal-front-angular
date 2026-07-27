@@ -15,11 +15,15 @@ export const navigation: NavigationItem[] = [
       },
       {
         text: 'Notas Fiscais',
-        path: '/notas-fiscais'
+        path: '/tasks'
       },
       {
         text: 'Produtos',
-        path: '/produtos'
+        path: '/products'
+      },
+      {
+        text: 'Clientes',
+        path: '/customers'
       }
     ]
   }

@@ -1,0 +1,15 @@
+<main class="products-container">
+  <div class="title-container">
+    <h1>Lista de produtos</h1>
+    <p class="subtitle">Gerencie seus produtos de forma eficiente e organizada.</p>
+  </div>
+
+  <dx-data-grid
+    id="gridContainer"
+    dataSource="data/customers.json"
+    [columns]="['id', 'Produto_nome','Preco', 'Descrição']"
+    [showBorders]="true"
+    >
+</dx-data-grid>
+
+</main>
