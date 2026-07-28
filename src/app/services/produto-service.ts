@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Produto } from '../interfaces/produto';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {Cliente} from '../interfaces/cliente';
 
 @Injectable({
   providedIn: 'root',
@@ -22,10 +23,13 @@ export class ProdutoService {
   }
 
   atualizar(produto: Produto): Observable<Produto> {
-    return this.http.put<Produto>(this.api, produto);
+    return this.http.put<Produto>(`${this.api}/${produto.id}` , produto);
   }
 
-  deletar(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.api}/${id}`);
+
+  deletar(produto: Produto): Observable<void> {
+    return this.http.delete<void>(`${this.api}/${produto.id}`, {
+      responseType: 'text' as 'json'
+    });
   }
 }

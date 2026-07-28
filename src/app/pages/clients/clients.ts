@@ -35,29 +35,27 @@ export class Clients implements OnInit {
       return;
     }
 
+    e.cancel = true;
+
     if (change.type === 'insert') {
       this.clienteService.salvar(change.data).subscribe({
         next: () => this.carregarClientes(),
         error: (err) => console.error('Erro ao inserir cliente', err),
       });
-    }
 
-    if (change.type === 'update') {
+    } else if (change.type === 'update') {
       const cliente = { ...change.data, id: change.key } as Cliente;
       this.clienteService.atualizar(cliente).subscribe({
         next: () => this.carregarClientes(),
         error: (err) => console.error('Erro ao atualizar cliente', err),
       });
-    }
 
-    if (change.type === 'remove') {
+    } else if (change.type === 'remove') {
       const cliente = { id: change.key } as Cliente;
       this.clienteService.deletar(cliente).subscribe({
         next: () => this.carregarClientes(),
         error: (err) => console.error('Erro ao deletar cliente', err),
       });
     }
-
-    e.cancel = true;
   }
 }

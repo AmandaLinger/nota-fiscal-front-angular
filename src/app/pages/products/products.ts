@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
 import { Produto } from '../../interfaces/produto';
 import { ProdutoService } from '../../services/produto-service';
-import { forkJoin } from 'rxjs';
+import {Cliente} from '../../interfaces/cliente';
 
 @Component({
   selector: 'app-products',
@@ -29,37 +29,61 @@ export class Products implements OnInit {
     });
   }
 
-  onSavingProducts(e: any): void{
+  onSavingProducts(e: any): void {
     const change = e?.changes?.[0];
+    const produtoAtualizado = {
+      ...change.oldData,
+      ...change.data
+    };
 
     if (!change) {
-          return;
+      return;
+    }
+
+
+    e.cancel = true;
+
+    if (change.type === 'insert') {
+      this.produtoService.salvar(change.data).subscribe({
+        next: () => this.carregarProdutos(),
+        error: (err) => console.error('Erro ao inserir produto', err),
+      });
+    }
+
+    if (change.type === 'update') {
+
+      console.log(change);
+      console.log(change.oldData);
+      console.log(change.data);
+      console.log(produtoAtualizado);
+
+
+      const produto = { ...change.data, id: change.key } as Produto;
+
+      this.produtoService.atualizar(produtoAtualizado as Produto).subscribe({
+        next: () => this.carregarProdutos(),
+        error: (err) => console.error('Erro ao atualizar produto', err),
+      });
+    }
+
+    if (change.type === 'remove') {
+      const produto = { id: change.key } as Produto;
+
+      this.produtoService.deletar(produto).subscribe({
+        next: () => {
+          this.carregarProdutos();
+        },
+        error: (err) => {
+          console.error('Erro ao deletar produto', err);
+
+          if (err.status === 409) {
+            alert(err.error || 'Impossível apagar o produto pois ele está vinculado a uma nota.');
+          } else if(err.status == true ){
+            alert('Ocorreu um erro ao tentar excluir o produto.');
+          }
+          this.carregarProdutos();
         }
-    
-        if (change.type === 'insert') {
-          this.produtoService.salvar(change.data).subscribe({
-            next: () => this.carregarProdutos(),
-            error: (err) => console.error('Erro ao inserir produto', err),
-          });
-        }
-    
-        if (change.type === 'update') {
-          const produto = { ...change.data, id: change.key } as Produto;
-          this.produtoService.atualizar(produto).subscribe({
-            next: () => this.carregarProdutos(),
-            error: (err) => console.error('Erro ao atualizar produto', err),
-          });
-        }
-    
-        if (change.type === 'remove') {
-          const requests = change.keys.map((id: number) => this.produtoService.deletar(id));
-    
-          forkJoin(requests).subscribe({
-            next: () => this.carregarProdutos(),
-            error: (err) => console.error('Erro ao excluir cliente', err),
-          });
-        }
-    
-        e.cancel = true;
+      });
+    }
   }
 }
