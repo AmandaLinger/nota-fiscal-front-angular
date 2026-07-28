@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
-import { Btn } from "../../shared/components/btn/btn";
 import { NotaFiscal } from '../../interfaces/nota-fiscal';
 import { NotaFiscalService } from '../../services/nota-fiscal-service';
 
@@ -9,12 +8,10 @@ import { NotaFiscalService } from '../../services/nota-fiscal-service';
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
   standalone: true,
-  imports: [DxDataGridModule,Btn]
+  imports: [DxDataGridModule]
 })
 export class TasksComponent implements OnInit{
   dataSource: NotaFiscal[] = [];
-  columns: string[] = ['id', 'numeroNotaFiscal', 'dataEmissao', 'cliente', 'produtos', 'precoTotal'];
-  
 
   constructor(private notaFiscalService: NotaFiscalService){}
 
@@ -22,5 +19,10 @@ export class TasksComponent implements OnInit{
     this.notaFiscalService.listar().subscribe((notaFiscal) => {
       this.dataSource = notaFiscal;
     })
+  }
+
+
+  onSavingNota(){
+
   }
 }

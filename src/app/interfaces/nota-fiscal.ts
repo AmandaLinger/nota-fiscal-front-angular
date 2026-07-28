@@ -4,7 +4,8 @@ import { Produto } from "./produto";
 export interface NotaFiscal {
     id: number;
     numeroNotaFiscal: number;
+    data: Date;
     cliente: Cliente;
-    produtos: Produto[];
+    itens: Produto[];
     precoTotal: number;
 }

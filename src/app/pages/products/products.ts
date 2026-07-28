@@ -12,15 +12,15 @@ import { ProdutoService } from '../../services/produto-service';
   styleUrl: './products.scss',
 })
 export class Products implements OnInit {
-  produtos: Produto[] = [];
-  columns = ['id', 'nome', 'preco', 'descricao'];
-
+  dataSource: Produto[] = [];
 
   constructor(private produtoService: ProdutoService) { }
 
   ngOnInit() {
     this.produtoService.listar().subscribe((produtos) => {
-      this.produtos = produtos;
+      this.dataSource = produtos;
     });
   }
+
+  onSavingProducts(){}
 }
