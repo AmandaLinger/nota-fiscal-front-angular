@@ -4,13 +4,43 @@
     <p class="subtitle">Gerencie seus clientes de forma eficiente e organizada.</p>
   </div>
 
-  <dx-data-grid
-    id="gridContainer"
-    [dataSource]="dataSource"
-    [columns]="columns"
-    [showBorders]="true"
-  >
-  </dx-data-grid>
+  <div id="data-grid-demo">
+    <dx-data-grid
+      id="gridContainer"
+      [dataSource]="dataSource"
+      keyExpr="id"
+      [showBorders]="true"
+      (onSaving)="onSavingClients($event)"
+    >
+    <dxo-data-grid-paging [enabled]="false"></dxo-data-grid-paging>
+    <dxo-data-grid-editing
+      mode="popup"
+      [allowUpdating]="true"
+      [allowAdding]="true"
+      [allowDeleting]="true"
+    >
+      <dxo-data-grid-popup
+        title="Informações"
+        [showTitle]="true"
+        [width]="700"
+        [height]="525"
+      >
+      </dxo-data-grid-popup>
+      <dxo-data-grid-form>
+        <dxi-data-grid-item itemType="group" [colCount]="1" [colSpan]="1">
+          <dxi-data-grid-item dataField="nome"></dxi-data-grid-item>
+          <dxi-data-grid-item dataField="codigo"></dxi-data-grid-item>
+        </dxi-data-grid-item>
+      </dxo-data-grid-form>
+    </dxo-data-grid-editing>
 
-<app-btn></app-btn>
+    <dxi-data-grid-column dataField="id" dataType="number">
+    </dxi-data-grid-column>
+    <dxi-data-grid-column dataField="nome" dataType="string">
+    </dxi-data-grid-column>
+    <dxi-data-grid-column dataField="codigo" dataType="string">
+    </dxi-data-grid-column>
+
+  </dx-data-grid>
+</div>
 </main>

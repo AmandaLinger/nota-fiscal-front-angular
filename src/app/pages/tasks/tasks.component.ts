@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
+import { DxDataGridModule, DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
 import { NotaFiscal } from '../../interfaces/nota-fiscal';
 import { NotaFiscalService } from '../../services/nota-fiscal-service';
 
@@ -22,7 +22,7 @@ export class TasksComponent implements OnInit{
   }
 
 
-  onSavingNota(){
+  onSavingNota(e: DxDataGridTypes.SavingEvent){
 
   }
 }

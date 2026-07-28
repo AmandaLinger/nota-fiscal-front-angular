@@ -10,7 +10,7 @@
       [dataSource]="dataSource"
       keyExpr="id"
       [showBorders]="true"
-    (onSaving)="onSavingNota()"
+    (onSaving)="onSavingNota($event)"
     >
     <dxo-data-grid-paging [enabled]="false"></dxo-data-grid-paging>
     <dxo-data-grid-editing
@@ -28,17 +28,19 @@
       </dxo-data-grid-popup>
       <dxo-data-grid-form>
         <dxi-data-grid-item itemType="group" [colCount]="1" [colSpan]="1">
-          <dxi-data-grid-item dataField="id"></dxi-data-grid-item>
           <dxi-data-grid-item dataField="numeroNotaFiscal"></dxi-data-grid-item>
-          <dxi-data-grid-item dataField="data"></dxi-data-grid-item>
           <dxi-data-grid-item dataField="cliente"></dxi-data-grid-item>
-          <dxi-data-grid-item dataField="precoTotal"></dxi-data-grid-item>
+          <dxi-data-grid-item dataField="produto"></dxi-data-grid-item>
+          <dxi-data-grid-item dataField="quantidade"></dxi-data-grid-item>
         </dxi-data-grid-item>
 
       </dxo-data-grid-form>
     </dxo-data-grid-editing>
 
-    <dxi-data-grid-column dataField="numeroNotaFiscal" dataType="number"></dxi-data-grid-column>
+    <dxi-data-grid-column dataField="id" dataType="number">
+    </dxi-data-grid-column>
+    <dxi-data-grid-column dataField="numeroNotaFiscal" dataType="number">
+    </dxi-data-grid-column>
     <dxi-data-grid-column dataField="data" dataType="date">
     </dxi-data-grid-column>
     <dxi-data-grid-column dataField="cliente" dataType="number">
