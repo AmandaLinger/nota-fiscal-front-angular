@@ -20,10 +20,11 @@ export class ClienteService {
   }
 
   atualizar(cliente: Cliente): Observable<Cliente> {
-    return this.http.put<Cliente>(this.api, cliente);
+    return this.http.put<Cliente>(`${this.api}/${cliente.id}`, cliente);
   }
 
-  deletar(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.api}/${id}`);
+  deletar(cliente: Cliente): Observable<void> {
+
+    return this.http.delete<void>(`${this.api}/${cliente.id}`);
   }
 }

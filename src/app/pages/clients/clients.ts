@@ -51,11 +51,10 @@ export class Clients implements OnInit {
     }
 
     if (change.type === 'remove') {
-      const requests = change.keys.map((id: number) => this.clienteService.deletar(id));
-
-      forkJoin(requests).subscribe({
+      const cliente = { id: change.key } as Cliente;
+      this.clienteService.deletar(cliente).subscribe({
         next: () => this.carregarClientes(),
-        error: (err) => console.error('Erro ao excluir cliente', err),
+        error: (err) => console.error('Erro ao deletar cliente', err),
       });
     }
 
