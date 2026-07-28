@@ -10,7 +10,7 @@
       [dataSource]="dataSource"
       keyExpr="id"
       [showBorders]="true"
-    (onSaving)="onSavingProducts()"
+    (onSaving)="onSavingProducts($event)"
     >
     <dxo-data-grid-paging [enabled]="false"></dxo-data-grid-paging>
     <dxo-data-grid-editing
@@ -27,7 +27,7 @@
       >
       </dxo-data-grid-popup>
       <dxo-data-grid-form>
-        <dxi-data-grid-item itemType="group" [colCount]="1" [colSpan]="1">
+        <dxi-data-grid-item itemType="group" [colCount]="2" [colSpan]="2">
           <dxi-data-grid-item dataField="nome"></dxi-data-grid-item>
           <dxi-data-grid-item dataField="preco"></dxi-data-grid-item>
           <dxi-data-grid-item dataField="descricao"></dxi-data-grid-item>

@@ -17,11 +17,15 @@ export class ProdutoService {
     return this.http.get<Produto[]>(this.api);
   }
 
-  salvar(produto : Produto){
+  salvar(produto: Produto): Observable<Produto> {
     return this.http.post<Produto>(this.api, produto);
   }
 
-  atualizar(produto: Produto){
+  atualizar(produto: Produto): Observable<Produto> {
     return this.http.put<Produto>(this.api, produto);
+  }
+
+  deletar(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.api}/${id}`);
   }
 }

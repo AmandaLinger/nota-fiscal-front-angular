@@ -12,7 +12,6 @@ import { forkJoin } from 'rxjs';
 })
 export class Clients implements OnInit {
   dataSource: Cliente[] = [];
-  columns = ['id', 'nome', 'codigo'];
 
   constructor(private clienteService: ClienteService) {}
 
