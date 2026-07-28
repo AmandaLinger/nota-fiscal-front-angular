@@ -5,6 +5,7 @@ import { NotaFiscalService } from '../../services/nota-fiscal-service';
 
 @Component({
   selector: 'app-tasks',
+  providers:[NotaFiscalService],
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
   standalone: true,
