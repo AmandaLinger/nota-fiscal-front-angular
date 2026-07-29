@@ -3,6 +3,7 @@ import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
 import { Cliente } from '../../interfaces/cliente';
 import { ClienteService } from '../../services/cliente-service';
 import { forkJoin } from 'rxjs';
+import {Produto} from '../../interfaces/produto';
 
 @Component({
   selector: 'app-clients',
@@ -35,7 +36,7 @@ export class Clients implements OnInit {
       return;
     }
 
-    e.cancel = true;
+    e.cancel = false;
 
     if (change.type === 'insert') {
       this.clienteService.salvar(change.data).subscribe({
@@ -43,14 +44,31 @@ export class Clients implements OnInit {
         error: (err) => console.error('Erro ao inserir cliente', err),
       });
 
-    } else if (change.type === 'update') {
-      const cliente = { ...change.data, id: change.key } as Cliente;
+    }
+
+    else if (change.type === 'update') {
+
+      const clienteOriginal = this.dataSource.find(
+        cliente => cliente.id === change.key
+      );
+
+      if(!clienteOriginal) {
+        return;
+      }
+
+      const cliente: Cliente = {
+        ...clienteOriginal,
+        ...change.data,
+        id: change.key,
+      }
+
       this.clienteService.atualizar(cliente).subscribe({
         next: () => this.carregarClientes(),
         error: (err) => console.error('Erro ao atualizar cliente', err),
-      });
+      })
+    }
 
-    } else if (change.type === 'remove') {
+    else if (change.type === 'remove') {
       const cliente = { id: change.key } as Cliente;
       this.clienteService.deletar(cliente).subscribe({
         next: () => this.carregarClientes(),
