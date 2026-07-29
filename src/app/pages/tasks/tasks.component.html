@@ -4,55 +4,97 @@
     <p class="subtitle">Relatório de todas notas fiscais emitidas.</p>
   </div>
 
-  <div id="data-grid-demo">
+  <div id="tree-list-demo">
     <dx-data-grid
-      id="gridContainer"
       [dataSource]="dataSource"
-      keyExpr="id"
+      [remoteOperations]="true"
+      [width]="'100%'"
+      [height]="600"
       [showBorders]="true"
-      (onSaving)="onSavingNota($event)">
-      <dxo-data-grid-paging [enabled]="false"></dxo-data-grid-paging>
+    >
+      <dxo-data-grid-filter-row [visible]="true"></dxo-data-grid-filter-row>
+      <dxo-data-grid-header-filter [visible]="true"></dxo-data-grid-header-filter>
+      <dxo-data-grid-group-panel [visible]="true"></dxo-data-grid-group-panel>
+      <dxo-data-grid-scrolling mode="virtual"></dxo-data-grid-scrolling>
       <dxo-data-grid-editing
-        mode="popup"
-        [allowUpdating]="true"
+        mode="row"
         [allowAdding]="true"
-        [allowDeleting]="true">
-        <dxo-data-grid-popup
-          title="Informações"
-          [showTitle]="true"
-          [width]="700"
-          [height]="525">
-        </dxo-data-grid-popup>
-        <dxo-data-grid-form>
-          <dxi-data-grid-item itemType="group" [colCount]="2" [colSpan]="2">
-            <dxi-data-grid-item dataField="numeroNotaFiscal"></dxi-data-grid-item>
-            <dxi-data-grid-item dataField="codigoCliente"></dxi-data-grid-item>
-            <dxi-data-grid-item template="itensTemplate" [colSpan]="2"></dxi-data-grid-item>
-          </dxi-data-grid-item>
-        </dxo-data-grid-form>
-
-        <ng-template #itensTemplate let-data>
-          <dx-data-grid [dataSource]="data.data.itens" [showBorders]="true">
-            <dxo-editing mode="row" [allowAdding]="true" [allowUpdating]="true" [allowDeleting]="true"></dxo-editing>
-
-            <dxi-data-grid-column dataField="produtoId" caption="Produto">
-              <dxo-lookup [dataSource]="productList" displayExpr="nome" valueExpr="id"></dxo-lookup>
-            </dxi-data-grid-column>
-
-            <dxi-data-grid-column dataField="quantidade" caption="Quantidade" dataType="number"></dxi-data-grid-column>
-            <dxi-data-grid-column dataField="precoUnitario" caption="Preço Unitário" dataType="number" format="fixedPoint"></dxi-data-grid-column>
-          </dx-data-grid>
-          <p class="hint">Adicione produtos e quantidades para esta nota fiscal.</p>
-        </ng-template>
-
+        [allowUpdating]="true"
+        [allowDeleting]="true"
+      >
       </dxo-data-grid-editing>
+      <dxo-data-grid-grouping [autoExpandAll]="false"></dxo-data-grid-grouping>
+      <dxo-data-grid-master-detail
+        [enabled]="true"
+        template="detail"
+      ></dxo-data-grid-master-detail>
+      <dxi-data-grid-column dataField="CustomerID" caption="Customer">
+        <dxi-data-grid-validation-rule
+          type="stringLength"
+          [max]="5"
+          message="The field Customer must be a string with a maximum length of 5."
+        ></dxi-data-grid-validation-rule>
+        <dxo-data-grid-lookup
+          [dataSource]="customersData"
+          valueExpr="Value"
+          displayExpr="Text"
+        ></dxo-data-grid-lookup>
+      </dxi-data-grid-column>
+      <dxi-data-grid-column dataField="OrderDate" dataType="date">
+        <dxi-data-grid-validation-rule
+          type="required"
+          message="The OrderDate field is required."
+        ></dxi-data-grid-validation-rule>
+      </dxi-data-grid-column>
+      <dxi-data-grid-column dataField="Freight">
+        <dxo-data-grid-header-filter
+          groupInterval="100"
+        ></dxo-data-grid-header-filter>
+        <dxi-data-grid-validation-rule
+          type="range"
+          [min]="0"
+          [max]="2000"
+          message="The field Freight must be between 0 and 2000."
+        >
+        </dxi-data-grid-validation-rule>
+      </dxi-data-grid-column>
+      <dxi-data-grid-column dataField="ShipCountry">
+        <dxi-data-grid-validation-rule
+          type="stringLength"
+          max="15"
+          message="The field ShipCountry must be a string with a maximum length of 15."
+        ></dxi-data-grid-validation-rule>
+      </dxi-data-grid-column>
+      <dxi-data-grid-column
+        dataField="ShipVia"
+        caption="Shipping Company"
+        dataType="number"
+      >
+        <dxo-data-grid-lookup
+          [dataSource]="shippersData"
+          valueExpr="Value"
+          displayExpr="Text"
+        ></dxo-data-grid-lookup>
+      </dxi-data-grid-column>
 
-      <dxi-data-grid-column dataField="id" dataType="number"></dxi-data-grid-column>
-      <dxi-data-grid-column dataField="numeroNotaFiscal" dataType="number"></dxi-data-grid-column>
-      <dxi-data-grid-column dataField="data" dataType="date"></dxi-data-grid-column>
-      <dxi-data-grid-column dataField="cliente" dataType="number"></dxi-data-grid-column>
-      <dxi-data-grid-column dataField="precoTotal" dataType="number"></dxi-data-grid-column>
-
+      <div *dxTemplate="let order of 'detail'">
+        <detail-grid [key]="order.key"></detail-grid>
+      </div>
+      <dxo-data-grid-summary>
+        <dxi-data-grid-total-item column="Freight" summaryType="sum">
+          <dxo-data-grid-value-format
+            type="decimal"
+            [precision]="2"
+          ></dxo-data-grid-value-format>
+        </dxi-data-grid-total-item>
+        <dxi-data-grid-group-item column="Freight" summaryType="sum">
+          <dxo-data-grid-value-format
+            type="decimal"
+            [precision]="2"
+          ></dxo-data-grid-value-format>
+        </dxi-data-grid-group-item>
+        <dxi-data-grid-group-item summaryType="count"> </dxi-data-grid-group-item>
+      </dxo-data-grid-summary>
     </dx-data-grid>
   </div>
 </main>

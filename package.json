@@ -33,6 +33,7 @@
     "@angular/router": "^20.3.0",
     "devextreme": "26.1.3",
     "devextreme-angular": "26.1.3",
+    "devextreme-aspnet-data-nojquery": "^5.1.0",
     "devextreme-schematics": "^1.16.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

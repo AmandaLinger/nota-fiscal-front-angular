@@ -10,26 +10,6 @@ import {NotaFiscalDto} from '../interfaces/nota-fiscal-dto';
 })
 export class NotaFiscalService {
 
-  constructor(private http: HttpClient) {}
-
-  private api = 'http://localhost:8080/notaFiscal';
-
-
-  listar(): Observable<NotaFiscal[]> {
-    return this.http.get<NotaFiscal[]>(this.api);
-  }
-
-  salvar(notaFiscal : NotaFiscalDto): Observable<NotaFiscal> {
-    return this.http.post<NotaFiscal>(this.api, notaFiscal);
-  }
-
-  atualizar(notaFiscal: NotaFiscal): Observable<NotaFiscal> {
-    return this.http.put<NotaFiscal>(`${this.api}/${notaFiscal.id}`, notaFiscal);
-  }
-
-  deletar(notaFiscal: NotaFiscal) : Observable<void> {
-    return this.http.delete<void>(`${this.api}/${notaFiscal.id}`);
-  }
 }
 
 
