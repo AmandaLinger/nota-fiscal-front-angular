@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
 import { Produto } from '../../interfaces/produto';
 import { ProdutoService } from '../../services/produto-service';
-import {Cliente} from '../../interfaces/cliente';
 
 @Component({
   selector: 'app-products',
@@ -31,17 +30,10 @@ export class Products implements OnInit {
 
   onSavingProducts(e: any): void {
     const change = e?.changes?.[0];
-    const produtoAtualizado = {
-      ...change.oldData,
-      ...change.data
-    };
-
     if (!change) {
       return;
     }
-
-
-    e.cancel = true;
+    e.cancel = false;
 
     if (change.type === 'insert') {
       this.produtoService.salvar(change.data).subscribe({
@@ -52,18 +44,24 @@ export class Products implements OnInit {
 
     if (change.type === 'update') {
 
-      console.log(change);
-      console.log(change.oldData);
-      console.log(change.data);
-      console.log(produtoAtualizado);
+      const produtoOriginal = this.dataSource.find(
+        produto => produto.id === change.key
+      );
 
+      if(!produtoOriginal) {
+        return;
+      }
 
-      const produto = { ...change.data, id: change.key } as Produto;
+      const produto: Produto = {
+        ...produtoOriginal,
+        ...change.data,
+        id: change.key,
+      }
 
-      this.produtoService.atualizar(produtoAtualizado as Produto).subscribe({
-        next: () => this.carregarProdutos(),
-        error: (err) => console.error('Erro ao atualizar produto', err),
-      });
+        this.produtoService.atualizar(produto).subscribe({
+          next: () => this.carregarProdutos(),
+          error: (err) => console.error('Erro ao atualizar produto', err),
+        })
     }
 
     if (change.type === 'remove') {
