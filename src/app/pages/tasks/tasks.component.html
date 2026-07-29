@@ -28,7 +28,8 @@
         [enabled]="true"
         template="detail"
       ></dxo-data-grid-master-detail>
-      <dxi-data-grid-column dataField="CustomerID" caption="Customer">
+
+      <dxi-data-grid-column dataField="CustomerID" caption="Nota fiscal">
         <dxi-data-grid-validation-rule
           type="stringLength"
           [max]="5"
@@ -40,23 +41,15 @@
           displayExpr="Text"
         ></dxo-data-grid-lookup>
       </dxi-data-grid-column>
-      <dxi-data-grid-column dataField="OrderDate" dataType="date">
+
+      <dxi-data-grid-column dataField="Data" dataType="date">
         <dxi-data-grid-validation-rule
           type="required"
-          message="The OrderDate field is required."
+          message="O campo data é nescessário"
         ></dxi-data-grid-validation-rule>
       </dxi-data-grid-column>
-      <dxi-data-grid-column dataField="Freight">
-        <dxo-data-grid-header-filter
-          groupInterval="100"
-        ></dxo-data-grid-header-filter>
-        <dxi-data-grid-validation-rule
-          type="range"
-          [min]="0"
-          [max]="2000"
-          message="The field Freight must be between 0 and 2000."
-        >
-        </dxi-data-grid-validation-rule>
+
+      <dxi-data-grid-column dataField="Cliente" dataType="number">
       </dxi-data-grid-column>
       <dxi-data-grid-column dataField="ShipCountry">
         <dxi-data-grid-validation-rule
