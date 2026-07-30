@@ -4,10 +4,9 @@
     <p class="subtitle">Relatório de todas notas fiscais emitidas.</p>
   </div>
 
-  <div id="tree-list-demo">
+  <div>
     <dx-data-grid
-      [dataSource]="dataSource"
-      [remoteOperations]="true"
+      [dataSource]="notas"
       [width]="'100%'"
       [height]="600"
       [showBorders]="true"
@@ -18,9 +17,9 @@
       <dxo-data-grid-scrolling mode="virtual"></dxo-data-grid-scrolling>
       <dxo-data-grid-editing
         mode="row"
-        [allowAdding]="true"
-        [allowUpdating]="true"
-        [allowDeleting]="true"
+        [allowAdding]="false"
+        [allowUpdating]="false"
+        [allowDeleting]="false"
       >
       </dxo-data-grid-editing>
       <dxo-data-grid-grouping [autoExpandAll]="false"></dxo-data-grid-grouping>
@@ -29,65 +28,28 @@
         template="detail"
       ></dxo-data-grid-master-detail>
 
-      <dxi-data-grid-column dataField="CustomerID" caption="Nota fiscal">
-        <dxi-data-grid-validation-rule
-          type="stringLength"
-          [max]="5"
-          message="The field Customer must be a string with a maximum length of 5."
-        ></dxi-data-grid-validation-rule>
-        <dxo-data-grid-lookup
-          [dataSource]="customersData"
-          valueExpr="Value"
-          displayExpr="Text"
-        ></dxo-data-grid-lookup>
-      </dxi-data-grid-column>
-
-      <dxi-data-grid-column dataField="Data" dataType="date">
-        <dxi-data-grid-validation-rule
-          type="required"
-          message="O campo data é nescessário"
-        ></dxi-data-grid-validation-rule>
-      </dxi-data-grid-column>
-
-      <dxi-data-grid-column dataField="Cliente" dataType="number">
-      </dxi-data-grid-column>
-      <dxi-data-grid-column dataField="ShipCountry">
-        <dxi-data-grid-validation-rule
-          type="stringLength"
-          max="15"
-          message="The field ShipCountry must be a string with a maximum length of 15."
-        ></dxi-data-grid-validation-rule>
-      </dxi-data-grid-column>
       <dxi-data-grid-column
-        dataField="ShipVia"
-        caption="Shipping Company"
-        dataType="number"
-      >
-        <dxo-data-grid-lookup
-          [dataSource]="shippersData"
-          valueExpr="Value"
-          displayExpr="Text"
-        ></dxo-data-grid-lookup>
+        dataField="numeroNotaFiscal"
+        caption="Nº Nota">
       </dxi-data-grid-column>
 
-      <div *dxTemplate="let order of 'detail'">
-        <detail-grid [key]="order.key"></detail-grid>
-      </div>
-      <dxo-data-grid-summary>
-        <dxi-data-grid-total-item column="Freight" summaryType="sum">
-          <dxo-data-grid-value-format
-            type="decimal"
-            [precision]="2"
-          ></dxo-data-grid-value-format>
-        </dxi-data-grid-total-item>
-        <dxi-data-grid-group-item column="Freight" summaryType="sum">
-          <dxo-data-grid-value-format
-            type="decimal"
-            [precision]="2"
-          ></dxo-data-grid-value-format>
-        </dxi-data-grid-group-item>
-        <dxi-data-grid-group-item summaryType="count"> </dxi-data-grid-group-item>
-      </dxo-data-grid-summary>
+      <dxi-data-grid-column
+        dataField="data"
+        dataType="date"
+        caption="Data">
+      </dxi-data-grid-column>
+
+      <dxi-data-grid-column
+        dataField="cliente.nome"
+        caption="Cliente">
+      </dxi-data-grid-column>
+
+      <dxi-data-grid-column
+        dataField="precoTotal"
+        caption="Valor Total"
+        dataType="number"
+        format="currency">
+      </dxi-data-grid-column>
     </dx-data-grid>
   </div>
 </main>

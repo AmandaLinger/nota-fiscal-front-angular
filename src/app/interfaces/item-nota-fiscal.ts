@@ -1,4 +1,3 @@
-import { NotaFiscal } from "./nota-fiscal";
 import { Produto } from "./produto";
 
 export interface ItemNotaFiscal {
@@ -6,5 +5,4 @@ export interface ItemNotaFiscal {
     quantidade: number;
     precoUnitario: number;
     produto: Produto;
-    notaFiscal: NotaFiscal;
 }

@@ -1,9 +1,8 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { Component, enableProdMode, provideZoneChangeDetection } from '@angular/core';
-import { DxDataGridModule } from 'devextreme-angular';
-import * as AspNetData from 'devextreme-aspnet-data-nojquery';
+import {Component, enableProdMode, OnInit} from '@angular/core';
+import {DxDataGridModule} from 'devextreme-angular';
 import 'anti-forgery';
-import {DetailGridComponent} from './detail-grid.component';
+import {NotaFiscal} from '../../interfaces/nota-fiscal';
+import {NotaFiscalService} from '../../services/nota-fiscal-service';
 
 if (!/localhost/.test(document.location.host)) {
   enableProdMode();
@@ -16,56 +15,22 @@ if (window && window.config?.packageConfigPaths) {
 }
 
 @Component({
-  styleUrls: [`app/app.component.css`],
+  styleUrls: [`./tasks.component.scss`],
   selector: 'demo-app',
-  templateUrl: `app/app.component.html`,
+  templateUrl: `./tasks.component.html`,
   imports: [
     DxDataGridModule,
   ],
 })
-export class TasksComponent {
-  customersData: AspNetData.CustomStore;
+export class TasksComponent implements OnInit {
+  notas: NotaFiscal[] = [];
 
-  shippersData: AspNetData.CustomStore;
-
-  dataSource: AspNetData.CustomStore;
-
-  url: string;
-
-  constructor() {
-    this.url = 'https://js.devexpress.com/Demos/NetCore/api/DataGridWebApi';
-
-    this.dataSource = AspNetData.createStore({
-      key: 'OrderID',
-      loadUrl: `${this.url}/Orders`,
-      insertUrl: `${this.url}/InsertOrder`,
-      updateUrl: `${this.url}/UpdateOrder`,
-      deleteUrl: `${this.url}/DeleteOrder`,
-      onBeforeSend(method, ajaxOptions) {
-        ajaxOptions.xhrFields = { withCredentials: true };
-      },
-    });
-
-    this.customersData = AspNetData.createStore({
-      key: 'Value',
-      loadUrl: `${this.url}/CustomersLookup`,
-      onBeforeSend(method, ajaxOptions) {
-        ajaxOptions.xhrFields = { withCredentials: true };
-      },
-    });
-
-    this.shippersData = AspNetData.createStore({
-      key: 'Value',
-      loadUrl: `${this.url}/ShippersLookup`,
-      onBeforeSend(method, ajaxOptions) {
-        ajaxOptions.xhrFields = { withCredentials: true };
-      },
-    });
+  ngOnInit() {
+    this.notaFiscalService.listar().subscribe(
+      notas => this.notas = notas
+    );
   }
+
+  constructor(private notaFiscalService: NotaFiscalService) {}
 }
 
-bootstrapApplication(TasksComponent, {
-  providers: [
-    provideZoneChangeDetection({ eventCoalescing: true, runCoalescing: true }),
-  ],
-});
