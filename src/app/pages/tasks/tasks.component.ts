@@ -5,6 +5,8 @@ import {NotaFiscalService} from '../../services/nota-fiscal-service';
 import {Cliente} from '../../interfaces/cliente';
 import {Produto} from '../../interfaces/produto';
 import {NotaFiscalCadastro} from '../../interfaces/nota-fiscal-cadastro';
+import {ClienteService} from '../../services/cliente-service';
+import {ProdutoService} from '../../services/produto-service';
 
 
 @Component({
@@ -17,7 +19,11 @@ import {NotaFiscalCadastro} from '../../interfaces/nota-fiscal-cadastro';
   ],
 })
 export class TasksComponent implements OnInit {
-  constructor(private notaFiscalService: NotaFiscalService) {}
+  constructor(
+    private notaFiscalService: NotaFiscalService,
+    private clienteService: ClienteService,
+    private produtoService: ProdutoService
+  ) {}
 
   notas: NotaFiscal[] = [];
 
@@ -35,15 +41,16 @@ export class TasksComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.notaFiscalService.listar().subscribe({
-      next: (notas) => {
-        console.log('Notas carregadas: ',notas);
-        this.notas = notas;
-      },
-      error: (error) => {
-        console.log('Erro ao carregar notas:  ', error);
-      }
-      }
+    this.notaFiscalService.listar().subscribe(
+      notas => this.notas = notas
+    );
+
+    this.clienteService.listar().subscribe(
+      clientes => this.clientes = clientes
+    );
+
+    this.produtoService.listar().subscribe(
+      produtos => this.produtos = produtos
     );
   }
 
@@ -52,5 +59,12 @@ export class TasksComponent implements OnInit {
     return item.quantidade*item.precoUnitario;
   }
 
+  abrirPopup(): void{
+    this.popupVisible = true;
+  }
+
+  fecharPopup(): void{
+    this.popupVisible = false;
+  }
 }
 
