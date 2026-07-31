@@ -16,21 +16,30 @@ if (window && window.config?.packageConfigPaths) {
 
 @Component({
   styleUrls: [`./tasks.component.scss`],
-  selector: 'demo-app',
+  standalone: true,
+  selector: 'app-tasks',
   templateUrl: `./tasks.component.html`,
   imports: [
     DxDataGridModule,
   ],
 })
 export class TasksComponent implements OnInit {
+  constructor(private notaFiscalService: NotaFiscalService) {}
+
   notas: NotaFiscal[] = [];
 
-  ngOnInit() {
-    this.notaFiscalService.listar().subscribe(
-      notas => this.notas = notas
+  ngOnInit(): void {
+    this.notaFiscalService.listar().subscribe({
+      next: (notas) => {
+        console.log('Notas carregadas: ',notas);
+        this.notas = notas;
+      },
+      error: (error) => {
+        console.log('Erro ao carregar notas:  ', error);
+      }
+      }
     );
   }
 
-  constructor(private notaFiscalService: NotaFiscalService) {}
 }
 
