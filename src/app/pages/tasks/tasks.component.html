@@ -73,7 +73,14 @@
 
       <dxi-data-grid-column
         dataField="precoUnitario"
-        caption="Preço Unitário">
+        caption="Preço Unitário"
+        format="currency">
+      </dxi-data-grid-column>
+
+      <dxi-data-grid-column
+        caption="Subtotal"
+        [calculateCellValue]="calcularSubtotal"
+        format="currency">
       </dxi-data-grid-column>
 
     </dx-data-grid>

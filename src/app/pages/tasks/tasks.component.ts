@@ -31,5 +31,10 @@ export class TasksComponent implements OnInit {
     );
   }
 
+
+  calcularSubtotal(item:any): number{
+    return item.quantidade*item.precoUnitario;
+  }
+
 }
 
