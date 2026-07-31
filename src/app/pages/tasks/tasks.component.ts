@@ -1,18 +1,8 @@
-import {Component, enableProdMode, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DxDataGridModule} from 'devextreme-angular';
-import 'anti-forgery';
 import {NotaFiscal} from '../../interfaces/nota-fiscal';
 import {NotaFiscalService} from '../../services/nota-fiscal-service';
 
-if (!/localhost/.test(document.location.host)) {
-  enableProdMode();
-}
-
-let modulePrefix = '';
-// @ts-ignore
-if (window && window.config?.packageConfigPaths) {
-  modulePrefix = '/app';
-}
 
 @Component({
   styleUrls: [`./tasks.component.scss`],
