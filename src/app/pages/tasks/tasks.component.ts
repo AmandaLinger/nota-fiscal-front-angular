@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DxDataGridModule} from 'devextreme-angular';
+import {DxDataGridModule, DxPopupModule} from 'devextreme-angular';
 import {NotaFiscal} from '../../interfaces/nota-fiscal';
 import {NotaFiscalService} from '../../services/nota-fiscal-service';
 import {Cliente} from '../../interfaces/cliente';
@@ -7,6 +7,7 @@ import {Produto} from '../../interfaces/produto';
 import {NotaFiscalCadastro} from '../../interfaces/nota-fiscal-cadastro';
 import {ClienteService} from '../../services/cliente-service';
 import {ProdutoService} from '../../services/produto-service';
+import {DxButtonModule} from 'devextreme-angular/ui/button';
 
 
 @Component({
@@ -15,7 +16,7 @@ import {ProdutoService} from '../../services/produto-service';
   selector: 'app-tasks',
   templateUrl: `./tasks.component.html`,
   imports: [
-    DxDataGridModule,
+    DxDataGridModule, DxButtonModule, DxPopupModule
   ],
 })
 export class TasksComponent implements OnInit {
@@ -59,7 +60,7 @@ export class TasksComponent implements OnInit {
     return item.quantidade*item.precoUnitario;
   }
 
-  abrirPopup(): void{
+  abrirPopUp(): void{
     this.popupVisible = true;
   }
 
