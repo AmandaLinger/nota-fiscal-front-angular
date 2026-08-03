@@ -22,7 +22,7 @@
 
     <dxo-data-grid-header-filter [visible]="true"></dxo-data-grid-header-filter>
 
-    <dxo-data-grid-group-panel [visible]="true"></dxo-data-grid-group-panel>
+    <dxo-data-grid-group-panel [visible]="false"></dxo-data-grid-group-panel>
 
     <dxo-data-grid-scrolling mode="virtual"></dxo-data-grid-scrolling>
 
@@ -95,6 +95,23 @@
           format="currency">
         </dxi-data-grid-column>
 
+        <dxi-data-grid-column
+          type="buttons" caption="Ações">
+
+          <dxi-data-grid-button
+            icon="edit"
+            hint="Editar"
+            [onClick]="editarNota">
+          </dxi-data-grid-button>
+
+          <dxi-data-grid-button
+            icon="trash"
+            hint="Excluir"
+            [onClick]="excluirNota">
+          </dxi-data-grid-button>
+
+        </dxi-data-grid-column>
+
       </dx-data-grid>
 
     </div>
@@ -103,6 +120,7 @@
 
 
   <!-- PopUp -->
+
   <dx-popup
     [(visible)]="popupVisible"
     [height]="500"
@@ -164,8 +182,13 @@
               [min]="1">
             </dx-number-box>
           </div>
-        </div>
 
+          <dx-button
+            icon="trash"
+            type="danger"
+            (onclick)="removerItem(i)">
+          </dx-button>
+        </div>
       </div>
 
       <div class="btn-adicionarProduto">
@@ -178,18 +201,16 @@
       <div class="popup-buttons">
         <dx-button
           text="Cancelar"
-          type="normal"
+          type="ok"
           (onClick)="fecharPopup()">
         </dx-button>
 
         <dx-button
           text="Salvar"
-          type="success"
-          (onClick)="salvarNota()">
+          type="normal"
+          (onClick)="salvarNota(novaNota)">
         </dx-button>
       </div>
-
-
 
     </div>
 

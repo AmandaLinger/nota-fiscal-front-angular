@@ -21,4 +21,12 @@ export class NotaFiscalService {
     return this.http.post<NotaFiscal>(this.api, nota);
   };
 
+  atualizar(nota: NotaFiscalCadastro) {
+    return this.http.put<NotaFiscal>(this.api, nota);
+  }
+
+  deletar(e : NotaFiscalCadastro) {
+    return this.http.delete<NotaFiscalCadastro>(`${this.api}/${e}`);
+  }
+
 }

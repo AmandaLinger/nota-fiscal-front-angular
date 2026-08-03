@@ -102,11 +102,32 @@ export class TasksComponent implements OnInit {
     this.popupVisible = false;
   }
 
-  adicionarItem(){
+  abrirPopupEdit(nota: NotaFiscalCadastro){
 
+    this.notaFiscalService.listar().subscribe({
+      next: () =>{
+        this.popupVisible = false;
+        this.notaFiscalService.listar().subscribe(
+          notas => this.notas = notas
+        );
+      },
+      error: (erro) =>{
+        console.log('Erro ao atualizar a nota fiscal', erro);
+      }
+    })
+
+    this.popupVisible = true;
   }
 
-  salvarNota(): void{
+  adicionarItem(): void{
+    this.novaNota.itens.push({
+      produtoId: 0,
+      quantidade: 1,
+      precoUnitario: 0
+    });
+  }
+
+  salvarNota(novaNota : NotaFiscalCadastro): void{
     this.notaFiscalService.salvar(this.novaNota).subscribe({
       next: () =>{
         this.popupVisible = false;
@@ -129,5 +150,36 @@ export class TasksComponent implements OnInit {
     }
 
   }
+
+  removerItem(i: number): void {
+
+    this.novaNota.itens.splice(i, 1);
+
+  }
+
+
+  editarNota(){
+
+  }
+
+
+  excluirNota = (e: any): void => {
+
+    if (!confirm('Deseja realmente excluir esta nota fiscal?')) {
+      return;
+    }
+
+    this.notaFiscalService.deletar(e.row.data.id).subscribe({
+
+      next: () => {
+        //this.listar();
+      },
+
+      error: err => console.error(err)
+
+    });
+
+  }
+
 }
 
