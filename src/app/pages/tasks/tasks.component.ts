@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DxDataGridModule, DxPopupModule} from 'devextreme-angular';
+import {DxDataGridModule, DxDateBoxModule, DxNumberBoxModule, DxPopupModule, DxTextBoxModule} from 'devextreme-angular';
 import {NotaFiscal} from '../../interfaces/nota-fiscal';
 import {NotaFiscalService} from '../../services/nota-fiscal-service';
 import {Cliente} from '../../interfaces/cliente';
@@ -8,6 +8,7 @@ import {NotaFiscalCadastro} from '../../interfaces/nota-fiscal-cadastro';
 import {ClienteService} from '../../services/cliente-service';
 import {ProdutoService} from '../../services/produto-service';
 import {DxButtonModule} from 'devextreme-angular/ui/button';
+import {DxFormModule} from 'devextreme-angular/ui/form';
 
 
 @Component({
@@ -16,7 +17,13 @@ import {DxButtonModule} from 'devextreme-angular/ui/button';
   selector: 'app-tasks',
   templateUrl: `./tasks.component.html`,
   imports: [
-    DxDataGridModule, DxButtonModule, DxPopupModule
+    DxDataGridModule,
+    DxButtonModule,
+    DxPopupModule,
+    DxFormModule,
+    DxTextBoxModule,
+    DxDateBoxModule,
+    DxNumberBoxModule
   ],
 })
 export class TasksComponent implements OnInit {
@@ -35,7 +42,7 @@ export class TasksComponent implements OnInit {
   popupVisible = false;
 
   novaNota: NotaFiscalCadastro = {
-    numeroNotaFiscal: 0,
+    numeroNotaFiscal: null as any,
     data: new Date().toISOString().substring(0,10),
     codigoCliente: 0,
     itens:[]
@@ -61,6 +68,20 @@ export class TasksComponent implements OnInit {
   }
 
   abrirPopUp(): void{
+
+    this.novaNota = {
+      numeroNotaFiscal: 0,
+      data: new Date().toISOString().substring(0,10),
+      codigoCliente: 0,
+      itens:[
+        {
+          produtoId: 0,
+          quantidade: 1,
+          precoUnitario: 0
+        }
+      ]
+    };
+
     this.popupVisible = true;
   }
 

@@ -18,8 +18,6 @@
     [height]="600"
     [showBorders]="true">
 
-    <!-- Configurações -->
-
     <dxo-data-grid-filter-row [visible]="true"></dxo-data-grid-filter-row>
 
     <dxo-data-grid-header-filter [visible]="true"></dxo-data-grid-header-filter>
@@ -116,7 +114,35 @@
 
 
     <div *dxTemplate="let data of 'content'">
-      <h3>Cadastro de nota fiscal</h3>
+      <dx-form
+        [formData]="novaNota"
+        [colCount]="2">
+
+        <dxi-item
+          dataField="numeroNotaFiscal"
+          editorType="dxNumberBox"
+          [label]="{ text: 'Número da Nota Fiscal' }">
+        </dxi-item>
+
+        <dxi-item
+          dataField="data"
+          editorType="dxDateBox"
+          [label]="{ text: 'Data' }">
+        </dxi-item>
+
+        <dxi-item
+          dataField="codigoCliente"
+          editorType="dxSelectBox"
+          [label]="{ text: 'Cliente' }"
+          [editorOptions]="{
+           dataSource:clientes,
+           displayExpr:'nome',
+            valueExpr:'codigo',
+            searchEnabled:true
+          }">
+        </dxi-item>
+      </dx-form>
+
 
     </div>
 
