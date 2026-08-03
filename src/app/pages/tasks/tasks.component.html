@@ -143,6 +143,53 @@
         </dxi-item>
       </dx-form>
 
+      <h3>Produtos</h3>
+
+      <div *ngFor="let item of novaNota.itens; let i = index">
+
+        <div class="produto-item">
+          <div class="produto">
+            <dx-select-box
+              [dataSource]="produtos"
+              displayExpr="nome"
+              valueExpr="id"
+              [(value)]="item.produtoId">
+              (onValueChanged)="onProdutoSelecionado(item)"
+            </dx-select-box>
+          </div>
+
+          <div class="quantidade">
+            <dx-number-box
+              [(value)]="item.quantidade"
+              [min]="1">
+            </dx-number-box>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="btn-adicionarProduto">
+        <dx-button
+          icon="plus"
+          (onClick)="adicionarItem()">
+        </dx-button>
+      </div>
+
+      <div class="popup-buttons">
+        <dx-button
+          text="Cancelar"
+          type="normal"
+          (onClick)="fecharPopup()">
+        </dx-button>
+
+        <dx-button
+          text="Salvar"
+          type="success"
+          (onClick)="salvarNota()">
+        </dx-button>
+      </div>
+
+
 
     </div>
 

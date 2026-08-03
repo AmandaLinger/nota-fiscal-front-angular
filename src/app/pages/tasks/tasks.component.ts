@@ -1,5 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {DxDataGridModule, DxDateBoxModule, DxNumberBoxModule, DxPopupModule, DxTextBoxModule} from 'devextreme-angular';
+import {
+  DxDataGridModule,
+  DxDateBoxModule,
+  DxNumberBoxModule,
+  DxPopupModule,
+  DxSelectBoxModule,
+  DxTextBoxModule
+} from 'devextreme-angular';
+
+import {CommonModule} from '@angular/common';
 import {NotaFiscal} from '../../interfaces/nota-fiscal';
 import {NotaFiscalService} from '../../services/nota-fiscal-service';
 import {Cliente} from '../../interfaces/cliente';
@@ -9,6 +18,7 @@ import {ClienteService} from '../../services/cliente-service';
 import {ProdutoService} from '../../services/produto-service';
 import {DxButtonModule} from 'devextreme-angular/ui/button';
 import {DxFormModule} from 'devextreme-angular/ui/form';
+import {ItemNotaFiscalCadastro} from '../../interfaces/item-nota-fiscal-cadastro';
 
 
 @Component({
@@ -17,13 +27,16 @@ import {DxFormModule} from 'devextreme-angular/ui/form';
   selector: 'app-tasks',
   templateUrl: `./tasks.component.html`,
   imports: [
+    CommonModule,
     DxDataGridModule,
     DxButtonModule,
     DxPopupModule,
     DxFormModule,
     DxTextBoxModule,
     DxDateBoxModule,
-    DxNumberBoxModule
+    DxNumberBoxModule,
+    DxSelectBoxModule,
+
   ],
 })
 export class TasksComponent implements OnInit {
@@ -87,6 +100,34 @@ export class TasksComponent implements OnInit {
 
   fecharPopup(): void{
     this.popupVisible = false;
+  }
+
+  adicionarItem(){
+
+  }
+
+  salvarNota(): void{
+    this.notaFiscalService.salvar(this.novaNota).subscribe({
+      next: () =>{
+        this.popupVisible = false;
+        this.notaFiscalService.listar().subscribe(
+          notas => this.notas = notas
+        );
+      },
+      error: (erro) =>{
+        console.log('Erro ao salvar a nota fiscal', erro);
+      }
+    });
+  }
+
+  onProdutoSelecionado(item: ItemNotaFiscalCadastro): void {
+
+    const produto = this.produtos.find(p => p.id === item.produtoId);
+
+    if (produto) {
+      item.precoUnitario = produto.preco;
+    }
+
   }
 }
 
